@@ -1,18 +1,14 @@
 import styled from "styled-components/macro";
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-const token = process.env.REACT_APP_GITHUB_TOKEN;
+import githubApi from "./service/githubAPI";
 
 function App() {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get("https://api.github.com/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    githubApi
+      .get("https://api.github.com/user")
       .then((response) => response.data)
       .then(setProfile)
       .catch((error) => setError(error.response.status));
