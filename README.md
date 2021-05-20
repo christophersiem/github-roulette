@@ -1,4 +1,4 @@
-#Template for friday exercise: GitHub Roulette
+# Template for friday exercise: GitHub Roulette
 
 1. use this repo as template
 2. within the main folder, run `npm install`
