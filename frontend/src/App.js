@@ -1,37 +1,37 @@
 import styled from "styled-components/macro";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-const token = process.env.REACT_APP_GITHUB_TOKEN
+const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 function App() {
+  const [profile, setProfile] = useState({});
+  const [error, setError] = useState("");
 
-    const [profile, setProfile] = useState({})
-    const [error, setError] = useState('')
+  useEffect(() => {
+    axios
+      .get("https://api.github.com/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then(setProfile)
+      .catch((error) => setError(error.response.status));
+  }, []);
 
-    useEffect(() => {
-        axios.get('https://api.github.com/user', {headers: {Authorization: `Bearer ${token}`}})
-            .then(response => response.data)
-            .then(setProfile)
-            .catch(error => setError(error.response.status))
-
-    }, [])
-
-    if (error) {
-        return (
-            <Page>
-                <img src={`https://http.cat/${error}`}/>
-            </Page>
-        )
-    }
-
-
+  if (error) {
     return (
-        <Page>
-            <h1>Hallo, {profile.login} 👋🏽</h1>
-            <Avatar src={profile.avatar_url}/>
-        </Page>
+      <Page>
+        <img src={`https://http.cat/${error}`} />
+      </Page>
     );
+  }
+
+  return (
+    <Page>
+      <h1>Hallo, {profile.login} 👋🏽</h1>
+      <Avatar src={profile.avatar_url} />
+    </Page>
+  );
 }
 
 export default App;
@@ -46,13 +46,10 @@ const Page = styled.main`
   left: 0;
   height: 100%;
   width: 100%;
-
-`
+`;
 
 const Avatar = styled.img`
   height: 200px;
   width: 200px;
   border-radius: 50%;
-`
-
-
+`;
