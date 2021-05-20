@@ -1,12 +1,58 @@
-import GlobalStyle from "./GlobalStyle";
+import styled from "styled-components/macro";
+import {useEffect, useState} from "react";
+import axios from "axios";
+
+const token = process.env.REACT_APP_GITHUB_TOKEN
 
 function App() {
+
+    const [profile, setProfile] = useState({})
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        axios.get('https://api.github.com/user', {headers: {Authorization: `Bearer ${token}`}})
+            .then(response => response.data)
+            .then(setProfile)
+            .catch(error => setError(error.response.status))
+
+    }, [])
+
+    if (error) {
+        return (
+            <Page>
+                <img src={`https://http.cat/${error}`}/>
+            </Page>
+        )
+    }
+
+
     return (
-        <>
-            <GlobalStyle/>
-            <p>Github Roulette</p>
-        </>
+        <Page>
+            <h1>Hallo, {profile.login} 👋🏽</h1>
+            <Avatar src={profile.avatar_url}/>
+        </Page>
     );
 }
 
 export default App;
+
+const Page = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+`
+
+const Avatar = styled.img`
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+`
+
+
