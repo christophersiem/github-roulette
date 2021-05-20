@@ -17,7 +17,7 @@ function App() {
   if (error) {
     return (
       <Page>
-        <img src={`https://http.cat/${error}`}  alt=""/>
+        <img src={`https://http.cat/${error}`} alt="" />
       </Page>
     )
   }

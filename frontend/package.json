@@ -20,7 +20,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier-check": "prettier --check .",
-    "prettify": "prettier --write ."
+    "prettify": "prettier --write .",
+    "postinstall": "cp .env.local.example .env.local"
   },
   "eslintConfig": {
     "extends": [
