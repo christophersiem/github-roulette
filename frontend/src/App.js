@@ -1,9 +1,12 @@
-function App() {
-  return (
-    <div>
+import GlobalStyle from "./GlobalStyle";
 
-    </div>
-  );
+function App() {
+    return (
+        <>
+            <GlobalStyle/>
+            <p>Github Roulette</p>
+        </>
+    );
 }
 
 export default App;
